@@ -181,7 +181,7 @@
   .hero-photo {
     position: relative;
     height: 100%;
-    min-height: calc(100vh - 64px);
+    min-height: 480px;
     background: var(--surface2);
     overflow: hidden;
     display: flex;
@@ -193,7 +193,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center 65%;
     display: block;
   }
 
@@ -715,6 +715,8 @@
   .ssid-demo-left { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
 
   /* QR CODE */
+  .qr-mobile { display: none; }
+
   .qr-block {
     margin-top: 0.5rem;
     padding-top: 1.5rem;
@@ -1370,7 +1372,9 @@
     .ssid-demo { grid-template-columns: 1fr; gap: 2rem; }
     .ssid-demo-left { order: 0; }
     .ios-phone { align-items: center; order: 1; }
-    .qr-block { order: 2; grid-column: 1; border-top: none; padding-top: 0; margin-top: 0; }
+    .qr-desktop { display: none; }
+    .qr-mobile { display: flex; order: 2; background: var(--surface); border-radius: 16px; padding: 1.5rem; gap: 1.25rem; align-items: center; margin-top: 0; border-top: none; padding-top: 1.5rem; }
+    .qr-mobile .qr-canvas-wrap { flex-shrink: 0; }
     .ios-frame { width: 300px; }
   }
 
@@ -1719,6 +1723,21 @@
         <strong style="color:var(--chalk)">Amber networks</strong> carry QoS priority — POS and staff traffic is never deprioritized. Grey networks are capped per device. All segments are VLAN-isolated.
       </div>
 
+      <!-- Desktop QR (hidden on mobile) -->
+      <div class="qr-block qr-desktop">
+        <div class="qr-canvas-wrap">
+          <canvas id="qrCanvas" width="140" height="140"></canvas>
+        </div>
+        <div class="qr-meta">
+          <div class="qr-eyebrow">Scan to join guest WiFi</div>
+          <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
+          <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
+          <div class="qr-open-badge">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+            Open network · Public access
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="ios-phone">
@@ -1781,13 +1800,14 @@
       </div>
     </div>
 
-    <div class="qr-block">
+    <!-- Mobile QR (shown only on mobile, after phone) -->
+    <div class="qr-block qr-mobile">
       <div class="qr-canvas-wrap">
-        <canvas id="qrCanvas" width="140" height="140"></canvas>
+        <canvas id="qrCanvasMobile" width="160" height="160"></canvas>
       </div>
       <div class="qr-meta">
         <div class="qr-eyebrow">Scan to join guest WiFi</div>
-        <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
+        <div class="qr-ssid" id="qrSsidLabelMobile">SummerFest-WiFi</div>
         <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
         <div class="qr-open-badge">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
@@ -2086,13 +2106,12 @@
       return bestMat;
     }
 
-    function renderQR(text) {
-      const canvas = document.getElementById('qrCanvas');
-      const label  = document.getElementById('qrSsidLabel');
+    function renderQRToCanvas(canvasId, text) {
+      const canvas = document.getElementById(canvasId);
       if (!canvas) return;
       const mat = makeQR(text);
       const S = mat.length;
-      const Q = 4; // quiet zone modules
+      const Q = 4;
       const size = canvas.width;
       const mod = Math.floor(size / (S + Q * 2));
       const off = Math.floor((size - mod * S) / 2);
@@ -2103,16 +2122,18 @@
       for (let r = 0; r < S; r++) for (let c = 0; c < S; c++) {
         if (mat[r][c]) ctx.fillRect(off + c*mod, off + r*mod, mod, mod);
       }
-      if (label) label.textContent = text;
     }
 
     function updateQR(name) {
       const n = name.trim();
       const ssid = n ? `${n}-WiFi` : 'Fieldcast-WiFi';
       const wifiStr = `WIFI:T:nopass;S:${ssid};;`;
-      renderQR(wifiStr);
-      const label = document.getElementById('qrSsidLabel');
-      if (label) label.textContent = ssid;
+      renderQRToCanvas('qrCanvas', wifiStr);
+      renderQRToCanvas('qrCanvasMobile', wifiStr);
+      const l1 = document.getElementById('qrSsidLabel');
+      const l2 = document.getElementById('qrSsidLabelMobile');
+      if (l1) l1.textContent = ssid;
+      if (l2) l2.textContent = ssid;
     }
 
     const input = document.getElementById('eventNameInput');
@@ -2324,7 +2345,7 @@
   <h2>Stop working around the signal. Bring it with you.</h2>
   <p>Tell us your date, site, and what you're running on the network. We'll have a coverage plan and quote back within 24 hours — no commitment required.</p>
   <a href="mailto:contact@fieldcast.io" class="btn-primary">Get a Coverage Plan</a>
-  <p class="cta-contact">Faster? Call us directly: <a href="tel:+15555555555">+1 (555) 555-5555</a></p>
+  <p class="cta-contact">Faster? Call us directly: <a href="tel:+17194286720">(719) 428-6720</a></p>
 </section>
 
 <!-- FOOTER -->
