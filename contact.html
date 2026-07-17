@@ -1,0 +1,595 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Fieldcast Mobile Internet</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:         #F2EFE8;
+    --surface:    #E8E4DC;
+    --surface2:   #DDD9D0;
+    --amber:      #C8891A;
+    --chalk:      #1A1C22;
+    --chalk-dim:  #4A5068;
+    --muted:      #7A7E8C;
+    --border:     rgba(0,0,0,0.08);
+    --type-serif: Palatino Linotype, Palatino, Georgia, 'Book Antiqua', serif;
+    --type-sans:  system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #07080D;
+      --surface:   #0F1320;
+      --surface2:  #161B2A;
+      --chalk:     #E8E4DC;
+      --chalk-dim: #A8A49C;
+      --muted:     #4A5068;
+      --border:    rgba(255,255,255,0.07);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #07080D; --surface: #0F1320; --surface2: #161B2A;
+    --chalk:     #E8E4DC; --chalk-dim: #A8A49C; --muted: #4A5068;
+    --border:    rgba(255,255,255,0.07);
+  }
+  :root[data-theme="light"] {
+    --bg:        #F2EFE8; --surface: #E8E4DC; --surface2: #DDD9D0;
+    --chalk:     #1A1C22; --chalk-dim: #4A5068; --muted: #7A7E8C;
+    --border:    rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--chalk);
+    font-family: var(--type-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: var(--type-serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--chalk);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--amber); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chalk-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--chalk); }
+  .nav-cta {
+    background: var(--amber);
+    color: #07080D !important;
+    padding: 0.55rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  /* MOBILE ISLAND */
+  .mobile-island { display: none; }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    nav { padding: 1rem 1.25rem; }
+
+    .mobile-island {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2.5rem);
+      max-width: 420px;
+      background: #F2EFE8;
+      border-radius: 999px;
+      padding: 0.6rem 0.6rem 0.6rem 1.25rem;
+      z-index: 200;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.12);
+    }
+    .mobile-island-logo {
+      font-family: var(--type-serif);
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: #07080D;
+      text-decoration: none;
+    }
+    .mobile-island-logo span { color: var(--amber); }
+    .mobile-island-btn {
+      background: #07080D;
+      color: #F2EFE8 !important;
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    body { padding-bottom: 5rem; }
+  }
+
+  /* PAGE */
+  .contact-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 3rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  /* LEFT — info */
+  .contact-info {}
+
+  .contact-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .contact-info h1 {
+    font-family: var(--type-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    color: var(--chalk);
+  }
+
+  .contact-info p {
+    color: var(--chalk-dim);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .contact-method {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .contact-method-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .contact-method-value {
+    font-size: 1rem;
+    color: var(--chalk);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .contact-method-value:hover { color: var(--amber); }
+
+  .contact-turnaround {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border-left: 2px solid var(--amber);
+    font-size: 0.85rem;
+    color: var(--chalk-dim);
+    line-height: 1.6;
+  }
+  .contact-turnaround strong { color: var(--chalk); }
+
+  /* RIGHT — form */
+  .contact-form-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+  }
+
+  .form-title {
+    font-family: var(--type-serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: var(--chalk);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .form-field.full { grid-column: 1 / -1; }
+
+  .form-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--chalk);
+    font-family: var(--type-sans);
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus { border-color: var(--amber); }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: var(--muted); }
+
+  .form-select-wrap { position: relative; }
+  .form-select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    font-size: 0.75rem;
+  }
+  .form-select option { background: var(--bg); color: var(--chalk); }
+
+  .form-textarea { resize: vertical; min-height: 110px; }
+
+  .form-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--chalk-dim);
+  }
+  .form-check input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--amber);
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .form-check-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    background: var(--amber);
+    color: #07080D;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: var(--type-sans);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { opacity: 0.88; }
+
+  .form-note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Success state */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .form-success-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .form-success h3 {
+    font-family: var(--type-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+  .form-success p { color: var(--chalk-dim); font-size: 0.9rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: var(--type-serif);
+    font-size: 1.1rem;
+    color: var(--chalk);
+  }
+  .footer-logo span { color: var(--amber); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .contact-page {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 3rem 1.25rem 5rem;
+    }
+    .contact-info p { max-width: 100%; }
+  }
+
+  @media (max-width: 480px) {
+    .contact-form-wrap { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem 1rem; }
+  }
+</style>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">Field<span>cast</span></a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#how">How It Works</a></li>
+    <li><a href="/#network">Network</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#specs">The Rig</a></li>
+    <li><a href="/contact" class="nav-cta">Book a Deployment</a></li>
+  </ul>
+</nav>
+
+<!-- MOBILE FLOATING ISLAND -->
+<div class="mobile-island">
+  <a class="mobile-island-logo" href="/">Field<span>cast</span></a>
+  <a class="mobile-island-btn" href="/contact">Book a Deployment</a>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-page">
+
+  <div class="contact-info">
+    <div class="contact-eyebrow">Get in touch</div>
+    <h1>Tell us about your event.</h1>
+    <p>We'll put together a coverage plan and quote within 24 hours — no commitment required. Most deployments book 1–2 weeks out, though we accommodate last-minute requests when capacity allows.</p>
+
+    <div class="contact-methods">
+      <div class="contact-method">
+        <span class="contact-method-label">Phone</span>
+        <a class="contact-method-value" href="tel:+17194286720">(719) 428-6720</a>
+      </div>
+      <div class="contact-method">
+        <span class="contact-method-label">Email</span>
+        <a class="contact-method-value" href="mailto:hello@fieldcast.co">hello@fieldcast.co</a>
+      </div>
+      <div class="contact-method">
+        <span class="contact-method-label">Service Area</span>
+        <span class="contact-method-value">Colorado &amp; surrounding region</span>
+      </div>
+    </div>
+
+    <div class="contact-turnaround">
+      <strong>Quick turnaround.</strong> Send us your date and location and we'll confirm availability, map your coverage zones, and deliver a written bandwidth plan — before you commit to anything.
+    </div>
+  </div>
+
+  <div class="contact-form-wrap">
+    <div class="form-title">Coverage request</div>
+
+    <!-- Replace YOUR_FORM_ID with your Formspree form ID -->
+    <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="firstName">First name</label>
+          <input class="form-input" id="firstName" name="firstName" type="text" placeholder="Drew" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="lastName">Last name</label>
+          <input class="form-input" id="lastName" name="lastName" type="text" placeholder="Smith" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" id="email" name="email" type="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="phone">Phone</label>
+          <input class="form-input" id="phone" name="phone" type="tel" placeholder="(719) 555-0100">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label" for="eventDate">Event date</label>
+          <input class="form-input" id="eventDate" name="eventDate" type="date" required>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="attendance">Expected attendance</label>
+          <div class="form-select-wrap">
+            <select class="form-select" id="attendance" name="attendance">
+              <option value="">Select range</option>
+              <option>Under 100</option>
+              <option>100 – 300</option>
+              <option>300 – 1,000</option>
+              <option>1,000 – 5,000</option>
+              <option>5,000+</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="location">Event location / address</label>
+        <input class="form-input" id="location" name="location" type="text" placeholder="City, venue, or GPS coordinates" required>
+      </div>
+
+      <div class="form-field">
+        <div class="form-check-label">What do you need on the network?</div>
+        <div class="form-checkboxes">
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Point of sale / payment processing">
+            Point of sale / payment processing
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Attendee / public WiFi">
+            Attendee / public WiFi
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Staff operations network">
+            Staff operations network
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Livestreaming / video upload">
+            Livestreaming / video upload
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Registration / check-in tablets">
+            Registration / check-in tablets
+          </label>
+          <label class="form-check">
+            <input type="checkbox" name="needs" value="Press / media network">
+            Press / media network
+          </label>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="message">Anything else we should know?</label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="Site terrain, power access, special requirements…"></textarea>
+      </div>
+
+      <button class="form-submit" type="submit">Send Coverage Request</button>
+      <p class="form-note">We respond within 24 hours. No spam, no sales pressure — just a coverage plan and a quote.</p>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#07080D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 11 9 16 18 6"/>
+        </svg>
+      </div>
+      <h3>Request received.</h3>
+      <p>We'll have a coverage plan and quote back to you within 24 hours.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Field<span>cast</span></div>
+  <div class="footer-copy">© 2026 Fieldcast Mobile Networks &nbsp;·&nbsp; Solar-powered. Always on.</div>
+</footer>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      success.style.display = 'block';
+    } else {
+      alert('Something went wrong. Please call us directly at (719) 428-6720.');
+    }
+  });
+</script>
