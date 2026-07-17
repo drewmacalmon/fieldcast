@@ -715,16 +715,15 @@
   .ssid-demo-left { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
 
   /* QR CODE */
-  .qr-mobile { display: none; }
-
   .qr-block {
     margin-top: 0.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
-    grid-column: 1;
     display: flex;
     gap: 1.25rem;
     align-items: flex-start;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .qr-canvas-wrap {
@@ -1408,9 +1407,7 @@
     .ssid-demo { grid-template-columns: 1fr; gap: 2rem; }
     .ssid-demo-left { order: 0; }
     .ios-phone { align-items: center; order: 1; }
-    .qr-desktop { display: none; }
-    .qr-mobile { display: flex; order: 2; background: var(--surface); border-radius: 16px; padding: 1.5rem; gap: 1.25rem; align-items: center; margin-top: 0; border-top: none; padding-top: 1.5rem; }
-    .qr-mobile .qr-canvas-wrap { flex-shrink: 0; }
+    .qr-block { order: 2; background: var(--surface); border-radius: 16px; padding: 1.5rem; margin-top: 0; border-top: none; }
     .ios-frame { width: 300px; }
   }
 
@@ -1784,21 +1781,6 @@
         <strong style="color:var(--chalk)">Amber networks</strong> carry QoS priority — POS and staff traffic is never deprioritized. Grey networks are capped per device. All segments are VLAN-isolated.
       </div>
 
-      <!-- Desktop QR (hidden on mobile) -->
-      <div class="qr-block qr-desktop">
-        <div class="qr-canvas-wrap">
-          <canvas id="qrCanvas" width="140" height="140"></canvas>
-        </div>
-        <div class="qr-meta">
-          <div class="qr-eyebrow">Scan to join guest WiFi</div>
-          <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
-          <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
-          <div class="qr-open-badge">
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
-            Open network · Public access
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="ios-phone">
@@ -1861,14 +1843,14 @@
       </div>
     </div>
 
-    <!-- Mobile QR (shown only on mobile, after phone) -->
-    <div class="qr-block qr-mobile">
+    <!-- QR Code -->
+    <div class="qr-block">
       <div class="qr-canvas-wrap">
-        <canvas id="qrCanvasMobile" width="160" height="160"></canvas>
+        <canvas id="qrCanvas" width="140" height="140"></canvas>
       </div>
       <div class="qr-meta">
         <div class="qr-eyebrow">Scan to join guest WiFi</div>
-        <div class="qr-ssid" id="qrSsidLabelMobile">SummerFest-WiFi</div>
+        <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
         <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
         <div class="qr-open-badge">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
@@ -2190,11 +2172,8 @@
       const ssid = n ? `${n}-WiFi` : 'Fieldcast-WiFi';
       const wifiStr = `WIFI:T:nopass;S:${ssid};;`;
       renderQRToCanvas('qrCanvas', wifiStr);
-      renderQRToCanvas('qrCanvasMobile', wifiStr);
       const l1 = document.getElementById('qrSsidLabel');
-      const l2 = document.getElementById('qrSsidLabelMobile');
       if (l1) l1.textContent = ssid;
-      if (l2) l2.textContent = ssid;
     }
 
     const input = document.getElementById('eventNameInput');
