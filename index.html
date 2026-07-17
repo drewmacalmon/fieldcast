@@ -111,6 +111,56 @@
     letter-spacing: 0.1em !important;
   }
 
+  /* ── MOBILE FLOATING ISLAND ── */
+  .mobile-island {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .mobile-island {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 2.5rem);
+      max-width: 420px;
+      background: var(--chalk);
+      border-radius: 999px;
+      padding: 0.6rem 0.6rem 0.6rem 1.25rem;
+      z-index: 200;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .mobile-island-logo {
+      font-family: var(--type-serif);
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: #07080D;
+      text-decoration: none;
+    }
+
+    .mobile-island-logo span { color: var(--amber); }
+
+    .mobile-island-btn {
+      background: #07080D;
+      color: var(--chalk) !important;
+      padding: 0.6rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* push page content above the island */
+    body { padding-bottom: 5rem; }
+  }
+
   /* ── HERO ── */
   .hero {
     display: grid;
@@ -669,6 +719,7 @@
     margin-top: 0.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--border);
+    grid-column: 1;
     display: flex;
     gap: 1.25rem;
     align-items: flex-start;
@@ -1317,7 +1368,9 @@
 
   @media (max-width: 1000px) {
     .ssid-demo { grid-template-columns: 1fr; gap: 2rem; }
-    .ios-phone { align-items: center; }
+    .ssid-demo-left { order: 0; }
+    .ios-phone { align-items: center; order: 1; }
+    .qr-block { order: 2; grid-column: 1; border-top: none; padding-top: 0; margin-top: 0; }
     .ios-frame { width: 300px; }
   }
 
@@ -1402,6 +1455,12 @@
     <li><a href="#contact" class="nav-cta">Book a Deployment</a></li>
   </ul>
 </nav>
+
+<!-- MOBILE FLOATING ISLAND -->
+<div class="mobile-island">
+  <a class="mobile-island-logo" href="#">Field<span>cast</span></a>
+  <a class="mobile-island-btn" href="#contact">Book a Deployment</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1660,20 +1719,6 @@
         <strong style="color:var(--chalk)">Amber networks</strong> carry QoS priority — POS and staff traffic is never deprioritized. Grey networks are capped per device. All segments are VLAN-isolated.
       </div>
 
-      <div class="qr-block">
-        <div class="qr-canvas-wrap">
-          <canvas id="qrCanvas" width="140" height="140"></canvas>
-        </div>
-        <div class="qr-meta">
-          <div class="qr-eyebrow">Scan to join guest WiFi</div>
-          <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
-          <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
-          <div class="qr-open-badge">
-            <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
-            Open network · Public access
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="ios-phone">
@@ -1732,6 +1777,21 @@
               All networks are VLAN-isolated. Amber signal bars indicate QoS-prioritized traffic reserved for critical operations.
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-block">
+      <div class="qr-canvas-wrap">
+        <canvas id="qrCanvas" width="140" height="140"></canvas>
+      </div>
+      <div class="qr-meta">
+        <div class="qr-eyebrow">Scan to join guest WiFi</div>
+        <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
+        <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
+        <div class="qr-open-badge">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+          Open network · Public access
         </div>
       </div>
     </div>
