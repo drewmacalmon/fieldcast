@@ -1411,7 +1411,7 @@
   </div>
 
   <div class="hero-photo">
-    <img src="https://vanlifetrader.com/wp-content/uploads/2023/09/2023-Ford-Transit-148_-AWD-1.jpg" alt="Fieldcast mobile internet van — Ford Transit Extended" />
+    <img src="https://tworoamingsouls.com/wp-content/uploads/2023/05/DSC02271-683x1024.jpg.webp" alt="Fieldcast mobile internet van — Ford Transit Extended" />
   </div>
 </section>
 
@@ -1638,6 +1638,21 @@
       <div class="ssid-demo-body" style="margin-top:0.25rem; font-size:0.75rem;">
         <strong style="color:var(--chalk)">Amber networks</strong> carry QoS priority — POS and staff traffic is never deprioritized. Grey networks are capped per device. All segments are VLAN-isolated.
       </div>
+
+      <div class="qr-block">
+        <div class="qr-canvas-wrap">
+          <canvas id="qrCanvas" width="140" height="140"></canvas>
+        </div>
+        <div class="qr-meta">
+          <div class="qr-eyebrow">Scan to join guest WiFi</div>
+          <div class="qr-ssid" id="qrSsidLabel">SummerFest-WiFi</div>
+          <div class="qr-hint">No password required. Opens instantly on iOS &amp; Android.</div>
+          <div class="qr-open-badge">
+            <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+            Open network · Public access
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="ios-phone">
@@ -1792,6 +1807,236 @@
     // Seed immediately
     input.value = 'SummerFest';
     render('SummerFest');
+  })();
+
+  // ── QR CODE GENERATOR ──────────────────────────────────────────────────────
+  (function() {
+    // GF(256) tables for Reed-Solomon
+    const EXP = new Uint8Array(512);
+    const LOG = new Uint8Array(256);
+    (function(){
+      let x = 1;
+      for (let i = 0; i < 255; i++) {
+        EXP[i] = x; LOG[x] = i;
+        x = x << 1; if (x & 0x100) x ^= 0x11D;
+      }
+      for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+    })();
+    function gfMul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+    function rsEncode(data, n) {
+      // Generate generator polynomial
+      let g = [1];
+      for (let i = 0; i < n; i++) {
+        const t = [1, EXP[i]];
+        const r = new Uint8Array(g.length + 1);
+        for (let j = 0; j < g.length; j++) { r[j] ^= gfMul(g[j], t[0]); r[j+1] ^= gfMul(g[j], t[1]); }
+        g = Array.from(r);
+      }
+      const msg = new Uint8Array(data.length + n);
+      msg.set(data);
+      for (let i = 0; i < data.length; i++) {
+        const c = msg[i];
+        if (c !== 0) for (let j = 0; j < g.length; j++) msg[i + j] ^= gfMul(g[j], c);
+      }
+      return msg.slice(data.length);
+    }
+
+    function makeQR(text) {
+      // Version 2, EC Level M: 44 data codewords, 16 EC codewords
+      const bytes = [];
+      for (let i = 0; i < text.length; i++) bytes.push(text.charCodeAt(i) & 0xFF);
+      const L = bytes.length;
+
+      // Build bit stream
+      const bits = [];
+      function pushBits(val, n) { for (let i = n-1; i >= 0; i--) bits.push((val >> i) & 1); }
+      pushBits(0b0100, 4);  // byte mode
+      pushBits(L, 8);       // char count
+      bytes.forEach(b => pushBits(b, 8));
+      pushBits(0, 4);       // terminator
+      while (bits.length % 8) bits.push(0);
+      const pads = [0xEC, 0x11];
+      let pi = 0;
+      while (bits.length < 44 * 8) { pads[pi++ % 2]; pushBits(pads[(pi-1) % 2], 8); }
+
+      // Codewords
+      const data = new Uint8Array(44);
+      for (let i = 0; i < 44; i++) {
+        for (let j = 0; j < 8; j++) data[i] = (data[i] << 1) | (bits[i*8+j] || 0);
+      }
+      const ec = rsEncode(data, 16);
+
+      // All codewords into bit stream
+      const allBits = [];
+      [...data, ...ec].forEach(b => { for (let i = 7; i >= 0; i--) allBits.push((b >> i) & 1); });
+      // Remainder bits for version 2
+      for (let i = 0; i < 7; i++) allBits.push(0);
+
+      // Matrix (25x25 for version 2)
+      const S = 25;
+      const mat = Array.from({length: S}, () => new Int8Array(S).fill(-1)); // -1=unfilled
+      const func = Array.from({length: S}, () => new Uint8Array(S));
+
+      function setFunc(r, c, v) { mat[r][c] = v; func[r][c] = 1; }
+
+      // Finder patterns
+      function finder(r, c) {
+        for (let dr = -1; dr <= 7; dr++) for (let dc = -1; dc <= 7; dc++) {
+          const rr = r+dr, cc = c+dc;
+          if (rr < 0 || rr >= S || cc < 0 || cc >= S) continue;
+          const inPat = dr >= 0 && dr <= 6 && dc >= 0 && dc <= 6;
+          const onEdge = dr === 0 || dr === 6 || dc === 0 || dc === 6;
+          const inner = dr >= 2 && dr <= 4 && dc >= 2 && dc <= 4;
+          setFunc(rr, cc, inPat ? (onEdge || inner ? 1 : 0) : 0);
+        }
+      }
+      finder(0, 0); finder(0, S-7); finder(S-7, 0);
+
+      // Timing patterns
+      for (let i = 8; i < S-8; i++) { setFunc(6, i, i%2===0?1:0); setFunc(i, 6, i%2===0?1:0); }
+
+      // Alignment pattern (version 2: center at row 18, col 18)
+      const ap = 18;
+      for (let dr = -2; dr <= 2; dr++) for (let dc = -2; dc <= 2; dc++) {
+        const onEdge = Math.abs(dr) === 2 || Math.abs(dc) === 2;
+        const center = dr === 0 && dc === 0;
+        setFunc(ap+dr, ap+dc, onEdge || center ? 1 : 0);
+      }
+
+      // Dark module
+      setFunc(4*2+9, 8, 1);
+
+      // Format info placeholders (mark as functional)
+      const fmtPos = [0,1,2,3,4,5,7,8];
+      fmtPos.forEach(i => { func[8][i]=1; func[i][8]=1; });
+      func[8][S-8]=1; func[8][S-7]=1; func[8][S-6]=1; func[8][S-5]=1; func[8][S-4]=1; func[8][S-3]=1; func[8][S-2]=1; func[8][S-1]=1;
+      for (let i = S-7; i < S; i++) func[i][8]=1;
+
+      // Place data bits (zigzag)
+      let bi = 0;
+      let up = true;
+      for (let col = S-1; col >= 0; col -= 2) {
+        if (col === 6) col--;
+        for (let row = 0; row < S; row++) {
+          const r = up ? S-1-row : row;
+          for (let d = 0; d < 2; d++) {
+            const c = col - d;
+            if (!func[r][c]) {
+              mat[r][c] = bi < allBits.length ? allBits[bi++] : 0;
+            }
+          }
+        }
+        up = !up;
+      }
+
+      // Evaluate all 8 masks, pick best
+      function penalty(m) {
+        let p = 0;
+        // Rule 1: 5+ consecutive same color in row/col
+        for (let r = 0; r < S; r++) {
+          for (let isRow = 0; isRow < 2; isRow++) {
+            let run = 1, prev = isRow ? m[r][0] : m[0][r];
+            for (let i = 1; i < S; i++) {
+              const v = isRow ? m[r][i] : m[i][r];
+              if (v === prev) { run++; if (run === 5) p += 3; else if (run > 5) p++; }
+              else { run = 1; prev = v; }
+            }
+          }
+        }
+        // Rule 2: 2x2 blocks
+        for (let r = 0; r < S-1; r++) for (let c = 0; c < S-1; c++) {
+          const v = m[r][c];
+          if (m[r][c+1]===v && m[r+1][c]===v && m[r+1][c+1]===v) p += 3;
+        }
+        // Rule 3: finder-like patterns
+        const pat1 = [1,0,1,1,1,0,1,0,0,0,0], pat2 = [0,0,0,0,1,0,1,1,1,0,1];
+        for (let r = 0; r < S; r++) for (let c = 0; c <= S-11; c++) {
+          const row = Array.from({length:11}, (_,i) => m[r][c+i]);
+          const col = Array.from({length:11}, (_,i) => m[c+i] ? m[c+i][r] : 0);
+          if (pat1.every((v,i)=>v===row[i]) || pat2.every((v,i)=>v===row[i])) p += 40;
+          if (pat1.every((v,i)=>v===col[i]) || pat2.every((v,i)=>v===col[i])) p += 40;
+        }
+        // Rule 4: dark proportion
+        let dark = 0;
+        for (let r = 0; r < S; r++) for (let c = 0; c < S; c++) if (m[r][c]) dark++;
+        const pct = dark * 100 / (S*S);
+        p += Math.min(Math.abs(Math.floor(pct/5)*5 - 50), Math.abs(Math.ceil(pct/5)*5 - 50)) / 5 * 10;
+        return p;
+      }
+
+      function applyMask(maskId) {
+        return mat.map((row, r) => row.map((v, c) => {
+          if (func[r][c]) return v;
+          let flip = false;
+          if (maskId===0) flip=(r+c)%2===0;
+          else if (maskId===1) flip=r%2===0;
+          else if (maskId===2) flip=c%3===0;
+          else if (maskId===3) flip=(r+c)%3===0;
+          else if (maskId===4) flip=(Math.floor(r/2)+Math.floor(c/3))%2===0;
+          else if (maskId===5) flip=(r*c)%2+(r*c)%3===0;
+          else if (maskId===6) flip=((r*c)%2+(r*c)%3)%2===0;
+          else if (maskId===7) flip=((r+c)%2+(r*c)%3)%2===0;
+          return flip ? (v^1) : v;
+        }));
+      }
+
+      let bestMask = 0, bestPen = Infinity, bestMat = null;
+      for (let m = 0; m < 8; m++) {
+        const masked = applyMask(m);
+        const pen = penalty(masked);
+        if (pen < bestPen) { bestPen = pen; bestMask = m; bestMat = masked; }
+      }
+
+      // Write format info (EC level M = 00, mask = bestMask)
+      const fmtData = (0b00 << 3) | bestMask;
+      const fmtPoly = 0b10100110111;
+      let fmt = fmtData << 10;
+      for (let i = 14; i >= 10; i--) if (fmt & (1 << i)) fmt ^= fmtPoly << (i - 10);
+      fmt = ((fmtData << 10) | fmt) ^ 0b101010000010010;
+      const fmtBits = Array.from({length:15}, (_,i) => (fmt >> (14-i)) & 1);
+      const fmtSeq = [0,1,2,3,4,5,7,8];
+      fmtSeq.forEach((pos, i) => {
+        bestMat[8][pos] = fmtBits[i];
+        bestMat[pos][8] = fmtBits[14-i];
+      });
+      for (let i = 0; i < 7; i++) bestMat[S-1-i][8] = fmtBits[8+i];
+      for (let i = 0; i < 8; i++) bestMat[8][S-8+i] = fmtBits[7-i];
+
+      return bestMat;
+    }
+
+    function renderQR(text) {
+      const canvas = document.getElementById('qrCanvas');
+      const label  = document.getElementById('qrSsidLabel');
+      if (!canvas) return;
+      const mat = makeQR(text);
+      const S = mat.length;
+      const Q = 4; // quiet zone modules
+      const size = canvas.width;
+      const mod = Math.floor(size / (S + Q * 2));
+      const off = Math.floor((size - mod * S) / 2);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, size, size);
+      ctx.fillStyle = '#000';
+      for (let r = 0; r < S; r++) for (let c = 0; c < S; c++) {
+        if (mat[r][c]) ctx.fillRect(off + c*mod, off + r*mod, mod, mod);
+      }
+      if (label) label.textContent = text;
+    }
+
+    function updateQR(name) {
+      const n = name.trim();
+      const ssid = n ? `${n}-WiFi` : 'Fieldcast-WiFi';
+      const wifiStr = `WIFI:T:nopass;S:${ssid};;`;
+      renderQR(wifiStr);
+      const label = document.getElementById('qrSsidLabel');
+      if (label) label.textContent = ssid;
+    }
+
+    const input = document.getElementById('eventNameInput');
+    if (input) input.addEventListener('input', () => updateQR(input.value));
+    updateQR('SummerFest');
   })();
   </script>
 </section>
