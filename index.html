@@ -1,0 +1,2008 @@
+
+<title>Fieldcast — Mobile Event Internet</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:         #07080D;
+    --surface:    #0F1320;
+    --surface2:   #161B2A;
+    --amber:      #C8891A;
+    --amber-dim:  #8C601200;
+    --signal:     #2F6080;
+    --chalk:      #E8E4DC;
+    --chalk-dim:  #A8A49C;
+    --muted:      #4A5068;
+    --border:     rgba(255,255,255,0.07);
+    --type-serif: Palatino Linotype, Palatino, Georgia, 'Book Antiqua', serif;
+    --type-sans:  system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg:        #F2EFE8;
+      --surface:   #E8E4DC;
+      --surface2:  #DDD9D0;
+      --chalk:     #1A1C22;
+      --chalk-dim: #4A5068;
+      --muted:     #7A7E8C;
+      --border:    rgba(0,0,0,0.08);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #07080D;
+    --surface:   #0F1320;
+    --surface2:  #161B2A;
+    --chalk:     #E8E4DC;
+    --chalk-dim: #A8A49C;
+    --muted:     #4A5068;
+    --border:    rgba(255,255,255,0.07);
+  }
+  :root[data-theme="light"] {
+    --bg:        #F2EFE8;
+    --surface:   #E8E4DC;
+    --surface2:  #DDD9D0;
+    --chalk:     #1A1C22;
+    --chalk-dim: #4A5068;
+    --muted:     #7A7E8C;
+    --border:    rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--chalk);
+    font-family: var(--type-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+  }
+
+  .nav-logo {
+    font-family: var(--type-serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--chalk);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--amber); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chalk-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--chalk); }
+
+  .nav-cta {
+    background: var(--amber);
+    color: #07080D !important;
+    padding: 0.55rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 64px);
+    align-items: center;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-copy {
+    padding: 4rem 3rem 4rem 3rem;
+    max-width: 600px;
+  }
+
+  /* Photo placeholder — swap src when images are ready */
+  .hero-photo {
+    position: relative;
+    height: 100%;
+    min-height: calc(100vh - 64px);
+    background: var(--surface2);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .hero-photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 3rem;
+    height: 100%;
+    width: 100%;
+  }
+
+  .hero-photo-placeholder svg { opacity: 0.3; }
+
+  .hero-photo-placeholder p {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    max-width: 200px;
+    line-height: 1.6;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .hero h1 {
+    font-family: var(--type-serif);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.08;
+    text-wrap: balance;
+    color: var(--chalk);
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--chalk-dim);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--chalk-dim);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--amber);
+    color: #07080D;
+    padding: 0.85rem 2rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .btn-ghost {
+    color: var(--chalk-dim);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    color: var(--chalk);
+    border-color: var(--chalk);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+  .stat-num {
+    font-family: var(--type-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--chalk);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--chalk-dim);
+  }
+
+  /* ── SIGNAL STRIPE ── */
+  .signal-bar {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 3rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  .signal-item {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .signal-item:last-child { border-right: none; }
+
+  .signal-icon {
+    color: var(--amber);
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+
+  .signal-text { font-size: 0.82rem; line-height: 1.4; }
+
+  .signal-text strong {
+    display: block;
+    color: var(--chalk);
+    font-size: 0.88rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .signal-text span { color: var(--chalk-dim); }
+
+  /* ── INTRO TEXT ── */
+  .intro {
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .intro-headline {
+    font-family: var(--type-serif);
+    font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-wrap: balance;
+    position: sticky;
+    top: 80px;
+  }
+
+  .intro-body p {
+    color: var(--chalk-dim);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 0.97rem;
+  }
+
+  .intro-body p strong { color: var(--chalk); font-weight: 500; }
+
+  /* ── USE CASES ── */
+  .use-cases {
+    padding: 5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 1px;
+    background: var(--amber);
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .case-card {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    transition: background 0.2s;
+  }
+
+  .case-card:hover { background: var(--surface2); }
+
+  .case-num {
+    font-family: var(--type-serif);
+    font-size: 2.5rem;
+    color: var(--muted);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+  }
+
+  .case-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--chalk);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.01em;
+  }
+
+  .case-desc {
+    font-size: 0.82rem;
+    color: var(--chalk-dim);
+    line-height: 1.65;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .how-head {
+    position: sticky;
+    top: 80px;
+  }
+
+  .how-head h2 {
+    font-family: var(--type-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 1rem;
+    text-wrap: balance;
+  }
+
+  .steps { display: flex; flex-direction: column; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .step:first-child { border-top: 1px solid var(--border); }
+
+  .step-num {
+    font-family: var(--type-serif);
+    font-size: 0.85rem;
+    color: var(--amber);
+    padding-top: 0.2rem;
+    font-weight: 400;
+  }
+
+  .step-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--chalk);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    font-size: 0.85rem;
+    color: var(--chalk-dim);
+    line-height: 1.7;
+  }
+
+  /* ── SPECS ── */
+  .specs {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 5rem 3rem;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+
+  .spec-group h3 {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+
+  .spec-key {
+    font-size: 0.82rem;
+    color: var(--chalk-dim);
+  }
+
+  .spec-val {
+    font-size: 0.88rem;
+    color: var(--chalk);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 7rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200, 137, 26, 0.07), transparent);
+    pointer-events: none;
+  }
+
+  .cta-section h2 {
+    font-family: var(--type-serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 400;
+    text-wrap: balance;
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.1;
+  }
+
+  .cta-section p {
+    color: var(--chalk-dim);
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .cta-contact {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .cta-contact a {
+    color: var(--chalk-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  /* ── NETWORK FEATURES ── */
+  .netfeatures {
+    padding: 5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .netfeatures-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    margin-bottom: 3.5rem;
+  }
+
+  .netfeatures-header h2 {
+    font-family: var(--type-serif);
+    font-size: clamp(1.7rem, 2.5vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.15;
+    text-wrap: balance;
+    margin-top: 1rem;
+  }
+
+  .netfeatures-header p {
+    font-size: 0.9rem;
+    color: var(--chalk-dim);
+    line-height: 1.75;
+    align-self: end;
+  }
+
+  .netfeatures-header p strong { color: var(--chalk); font-weight: 500; }
+
+  .netfeatures-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .netfeature {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: background 0.2s;
+  }
+
+  .netfeature:hover { background: var(--surface2); }
+
+  .netfeature-icon {
+    color: var(--amber);
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+
+  .netfeature-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--chalk);
+    letter-spacing: 0.01em;
+    line-height: 1.3;
+  }
+
+  .netfeature-desc {
+    font-size: 0.82rem;
+    color: var(--chalk-dim);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .netfeature-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid rgba(200, 137, 26, 0.3);
+    padding: 0.2rem 0.5rem;
+    align-self: flex-start;
+    margin-top: 0.25rem;
+  }
+
+  /* SSID INTERACTIVE DEMO */
+  .ssid-demo {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 4rem;
+    align-items: start;
+    padding: 3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .ssid-demo-left { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+
+  /* QR CODE */
+  .qr-block {
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .qr-canvas-wrap {
+    background: #fff;
+    padding: 8px;
+    flex-shrink: 0;
+    line-height: 0;
+    border-radius: 2px;
+  }
+
+  #qrCanvas { display: block; }
+
+  .qr-meta { display: flex; flex-direction: column; gap: 0.4rem; padding-top: 2px; }
+
+  .qr-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .qr-ssid {
+    font-family: 'SF Mono', 'Fira Mono', 'Consolas', monospace;
+    font-size: 0.88rem;
+    color: var(--chalk);
+    letter-spacing: 0.03em;
+    word-break: break-all;
+  }
+
+  .qr-hint {
+    font-size: 0.75rem;
+    color: var(--chalk-dim);
+    line-height: 1.5;
+  }
+
+  .qr-open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #30A852;
+    margin-top: 0.25rem;
+  }
+
+  .ssid-demo-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .ssid-demo-headline {
+    font-family: var(--type-serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--chalk);
+    text-wrap: balance;
+  }
+
+  .ssid-demo-body {
+    font-size: 0.82rem;
+    color: var(--chalk-dim);
+    line-height: 1.7;
+  }
+
+  .ssid-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ssid-input-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .ssid-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    color: var(--chalk);
+    font-family: 'SF Mono', 'Fira Mono', 'Consolas', monospace;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .ssid-input:focus { border-color: var(--amber); }
+  .ssid-input::placeholder { color: var(--muted); }
+
+  /* iOS PHONE FRAME — iPhone 15 Pro aspect ratio 393:852 ≈ 9:19.5 */
+  .ios-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ios-frame {
+    width: 340px;
+    position: relative;
+    background: #2A2A2C;
+    border-radius: 54px;
+    padding: 14px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.12),
+      inset 0 0 0 1px rgba(0,0,0,0.6),
+      0 50px 100px rgba(0,0,0,0.8),
+      0 25px 50px rgba(0,0,0,0.5),
+      0 0 80px rgba(0,0,0,0.3);
+  }
+
+  /* Mute switch + volume buttons left */
+  .ios-frame::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 100px;
+    width: 3px;
+    height: 28px;
+    background: #3A3A3C;
+    border-radius: 2px 0 0 2px;
+    /* volume up then volume down */
+    box-shadow: 0 48px 0 #3A3A3C, 0 96px 0 #3A3A3C;
+  }
+
+  /* Power button right */
+  .ios-frame::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 130px;
+    width: 3px;
+    height: 80px;
+    background: #3A3A3C;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .ios-screen {
+    background: #000;
+    border-radius: 42px;
+    overflow: hidden;
+    position: relative;
+    /* iPhone 15 Pro: 393 × 852 → ratio 1:2.168 */
+    aspect-ratio: 393 / 852;
+    width: 100%;
+  }
+
+  /* Dynamic Island */
+  .ios-dynamic-island {
+    position: absolute;
+    top: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 115px;
+    height: 33px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  .ios-content {
+    background: #1C1C1E;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 54px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .ios-content::-webkit-scrollbar { display: none; }
+
+  /* Status bar */
+  .ios-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    font-family: -apple-system, 'SF Pro Display', system-ui, sans-serif;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+  }
+
+  .ios-statusbar-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Navigation bar */
+  .ios-navbar {
+    padding: 6px 16px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1C1C1E;
+    flex-shrink: 0;
+  }
+
+  .ios-back {
+    color: #0A84FF;
+    font-size: 17px;
+    font-family: -apple-system, system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 400;
+  }
+
+  .ios-back svg { flex-shrink: 0; }
+
+  .ios-title {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: -apple-system, system-ui, sans-serif;
+    flex: 1;
+    text-align: center;
+    letter-spacing: -0.4px;
+  }
+
+  .ios-toggle-row {
+    padding: 0 16px;
+    background: #1C1C1E;
+    flex-shrink: 0;
+  }
+
+  .ios-cell {
+    background: #2C2C2E;
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+  }
+
+  .ios-cell-label {
+    color: #fff;
+    font-size: 17px;
+    font-family: -apple-system, system-ui, sans-serif;
+    letter-spacing: -0.4px;
+  }
+
+  .ios-toggle {
+    width: 51px;
+    height: 31px;
+    background: #30D158;
+    border-radius: 16px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ios-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 27px;
+    height: 27px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+
+  .ios-section-header {
+    padding: 16px 32px 6px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #8E8E93;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: -apple-system, system-ui, sans-serif;
+    background: #1C1C1E;
+    flex-shrink: 0;
+  }
+
+  .ios-network-list {
+    background: #2C2C2E;
+    border-radius: 10px;
+    margin: 0 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .ios-network-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.1);
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .ios-network-row.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ios-network-row:last-child { border-bottom: none; }
+
+  .ios-net-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .ios-net-info { flex: 1; min-width: 0; }
+
+  .ios-net-name {
+    color: #fff;
+    font-size: 15px;
+    font-family: -apple-system, system-ui, sans-serif;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+  }
+
+  .ios-net-name.connected { color: #30D158; }
+
+  .ios-net-sub {
+    color: #8E8E93;
+    font-size: 12px;
+    font-family: -apple-system, system-ui, sans-serif;
+    letter-spacing: -0.1px;
+    margin-top: 1px;
+  }
+
+  .ios-net-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .ios-lock { color: #8E8E93; }
+  .ios-priority-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #C8891A;
+  }
+  .ios-info-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid #3A3A3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0A84FF;
+    font-size: 13px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .ios-empty {
+    padding: 20px 16px;
+    color: #8E8E93;
+    font-size: 14px;
+    font-family: -apple-system, system-ui, sans-serif;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .ios-footer {
+    padding: 6px 32px 20px;
+    font-size: 12px;
+    color: #636366;
+    font-family: -apple-system, system-ui, sans-serif;
+    line-height: 1.4;
+    background: #1C1C1E;
+    letter-spacing: -0.1px;
+    flex-shrink: 0;
+  }
+
+  /* ── PRICING ── */
+  .pricing {
+    padding: 5rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .pricing-intro {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 6rem;
+    align-items: start;
+    margin-bottom: 3rem;
+  }
+
+  .pricing-intro h2 {
+    font-family: var(--type-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin-top: 1rem;
+    position: sticky;
+    top: 80px;
+  }
+
+  .pricing-note {
+    font-size: 0.88rem;
+    color: var(--chalk-dim);
+    line-height: 1.75;
+    align-self: center;
+  }
+
+  .pricing-note strong { color: var(--chalk); font-weight: 500; }
+
+  .pricing-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .tier {
+    background: var(--bg);
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .tier.featured {
+    background: var(--surface);
+  }
+
+  .tier-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.25rem;
+  }
+
+  .tier-name {
+    font-family: var(--type-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--chalk);
+    margin-bottom: 0.35rem;
+  }
+
+  .tier-desc {
+    font-size: 0.8rem;
+    color: var(--chalk-dim);
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
+  }
+
+  .tier-price {
+    font-family: var(--type-serif);
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: var(--chalk);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.3rem;
+  }
+
+  .tier-price sup {
+    font-size: 1.1rem;
+    vertical-align: super;
+    font-family: var(--type-sans);
+    font-weight: 500;
+  }
+
+  .tier-period {
+    font-size: 0.75rem;
+    color: var(--chalk-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .tier-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.75rem;
+  }
+
+  .tier-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+  }
+
+  .tier-features li {
+    font-size: 0.82rem;
+    color: var(--chalk-dim);
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+    line-height: 1.4;
+  }
+
+  .tier-features li::before {
+    content: '—';
+    color: var(--amber);
+    flex-shrink: 0;
+    font-size: 0.7rem;
+  }
+
+  .tier-features li strong { color: var(--chalk); font-weight: 500; }
+
+  .tier-cta {
+    margin-top: 2rem;
+    display: inline-block;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--chalk-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted);
+    padding-bottom: 1px;
+    align-self: flex-start;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .tier-cta:hover { color: var(--chalk); border-color: var(--chalk); }
+
+  .tier.featured .tier-cta {
+    background: var(--amber);
+    color: #07080D;
+    border: none;
+    padding: 0.65rem 1.5rem;
+    font-weight: 600;
+  }
+
+  .tier.featured .tier-cta:hover { opacity: 0.88; }
+
+  .pricing-footer {
+    margin-top: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── LIMITATIONS ── */
+  .limitations {
+    padding: 3.5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .limitations-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .limitations-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    padding-top: 0.1rem;
+  }
+
+  .limitations-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 3rem;
+  }
+
+  .limitation-item {
+    display: flex;
+    gap: 0.85rem;
+    align-items: start;
+  }
+
+  .limitation-icon {
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .limitation-text { font-size: 0.82rem; color: var(--chalk-dim); line-height: 1.6; }
+  .limitation-text strong { color: var(--chalk); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+  .disclaimer-bar {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.73rem;
+    color: var(--muted);
+    line-height: 1.7;
+    grid-column: 1 / -1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: var(--type-serif);
+    font-size: 1rem;
+    color: var(--chalk-dim);
+    letter-spacing: 0.06em;
+  }
+
+  .footer-logo span { color: var(--amber); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .pricing-tiers { grid-template-columns: 1fr; }
+    .netfeatures-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 1000px) {
+    .ssid-demo { grid-template-columns: 1fr; }
+    .ios-phone { align-items: flex-start; }
+    .ios-frame { width: 300px; }
+  }
+
+  @media (max-width: 900px) {
+    .netfeatures { padding: 3rem 1.5rem; }
+    .netfeatures-header { grid-template-columns: 1fr; gap: 1.5rem; }
+    .ssid-demo { padding: 1.5rem; }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-copy { padding: 3rem 1.5rem; }
+    .hero-photo { min-height: 50vw; height: 50vw; }
+    .intro { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .intro-headline { position: static; }
+    .cases-grid { grid-template-columns: 1fr 1fr; }
+    .how { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .how-head { position: static; }
+    .specs { padding: 3rem 1.5rem; }
+    .specs-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .use-cases { padding: 3rem 1.5rem; }
+    .pricing { padding: 3rem 1.5rem; }
+    .pricing-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+    .pricing-intro h2 { position: static; }
+    .limitations { padding: 2.5rem 1.5rem; }
+    .limitations-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .limitations-body { grid-template-columns: 1fr; }
+    .cta-section { padding: 4rem 1.5rem; }
+    footer { padding: 1.5rem; }
+    .signal-bar { padding: 0; }
+    .signal-item { min-width: 200px; }
+  }
+
+  @media (max-width: 640px) {
+    .netfeatures-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 580px) {
+    .cases-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .nav-links { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Field<span>cast</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#network">Network</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#specs">The Rig</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Deployment</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-copy">
+    <div class="hero-eyebrow">On-demand broadband · Any site · Any terrain</div>
+    <h1>The site had<br><em>no signal.</em><br>We fixed that.</h1>
+    <p class="hero-sub">
+      Fieldcast deploys enterprise broadband to any outdoor location in under an hour — solar-powered, satellite-backed, covering up to 5,000 sq ft of active event space with no infrastructure required.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Deployment</a>
+      <a href="#how" class="btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">500m</span>
+        <span class="stat-label">Broadcast radius</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">&lt;60</span>
+        <span class="stat-label">Minutes to live</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">350+</span>
+        <span class="stat-label">Concurrent devices</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-photo">
+    <img src="https://vanlifetrader.com/wp-content/uploads/2023/09/2023-Ford-Transit-148_-AWD-1.jpg" alt="Fieldcast mobile internet van — Ford Transit Extended" />
+  </div>
+</section>
+
+<!-- SIGNAL STRIP -->
+<div class="signal-bar" id="services">
+  <div class="signal-item">
+    <svg class="signal-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M1.5 8.5A14.5 14.5 0 0 1 22.5 8.5M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01"/>
+    </svg>
+    <div class="signal-text">
+      <strong>Starlink Backbone</strong>
+      <span>Up to 220 Mbps, 25ms latency</span>
+    </div>
+  </div>
+  <div class="signal-item">
+    <svg class="signal-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+    </svg>
+    <div class="signal-text">
+      <strong>Fully Solar-Powered</strong>
+      <span>No generator, no hookup, no negotiation</span>
+    </div>
+  </div>
+  <div class="signal-item">
+    <svg class="signal-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/>
+    </svg>
+    <div class="signal-text">
+      <strong>Enterprise Mesh WiFi</strong>
+      <span>500m radius, WPA3, seamless roaming</span>
+    </div>
+  </div>
+  <div class="signal-item">
+    <svg class="signal-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h5l2 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+    </svg>
+    <div class="signal-text">
+      <strong>Self-Contained Unit</strong>
+      <span>Ford Transit Extended — drives to you</span>
+    </div>
+  </div>
+  <div class="signal-item">
+    <svg class="signal-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+    <div class="signal-text">
+      <strong>Custom SSIDs &amp; QoS</strong>
+      <span>Branded networks, per-device bandwidth caps</span>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="intro">
+  <div>
+    <h2 class="intro-headline">A dead zone used to mean a different site. Not anymore.</h2>
+  </div>
+  <div class="intro-body">
+    <p>
+      Connectivity failure at an outdoor event isn't just frustrating — it's a direct revenue hit. Point-of-sale systems go offline and vendor lines grind to cash-only. Attendee registration tablets stop syncing. Staff radios fall back to shouting. Live streams drop. And whoever organized the event takes the blame for every single one of those failures.
+    </p>
+    <p>
+      <strong>Fieldcast removes that risk entirely.</strong> We park a fully equipped Starlink station at your site, raise the access points, and have broadband broadcasting across a 500-meter radius — covering up to 5,000 sq ft of active event space — before your first attendee walks through the gate. No ISP lead time. No generator rental. No cable runs. No site negotiation about power access.
+    </p>
+    <p>
+      The rig is a Ford Transit Extended loaded with 800 watts of roof-mounted solar, a 10 kWh lithium battery bank, and enterprise-grade wireless infrastructure — the same hardware category used by large-scale outdoor productions, made fully mobile. Starlink's low-earth-orbit satellite network provides the uplink, delivering real broadband in locations where a cell tower has never been built and fiber will never be run.
+    </p>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="use-cases" id="services">
+  <div class="section-label">Who we serve</div>
+  <div class="cases-grid">
+    <div class="case-card">
+      <div class="case-num">I</div>
+      <div class="case-title">Festivals, Fairs &amp; Outdoor Events</div>
+      <p class="case-desc">Your vendors need point-of-sale. Your gate staff need registration syncing. Your production team needs livestream uplink. When half your crowd can't pay by card because the signal is gone, you feel it immediately — in lines, in complaints, in revenue. We keep every one of those systems live, from first gates to last call.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-num">II</div>
+      <div class="case-title">Outdoor Corporate &amp; Private Events</div>
+      <p class="case-desc">Attendee check-in apps, registration kiosks, badge printing, real-time headcount — none of it works without a network. Off-site corporate events and private gatherings in remote locations need the same reliability as the office, without dragging the infrastructure along with you.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-num">III</div>
+      <div class="case-title">Film, Live Streaming &amp; Production</div>
+      <p class="case-desc">Remote shoots need connectivity for video village, production software, and real-time dailies upload. Live-stream productions need stable, high-throughput uplink that a single saturated hotspot can't provide. We bring a dedicated, managed network to any field location — no cell signal required.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-num">IV</div>
+      <div class="case-title">Emergency &amp; Incident Response</div>
+      <p class="case-desc">When infrastructure is down, the teams managing the response can't afford to be in a dead zone too. Fieldcast stages within an hour of the call, giving emergency coordinators, medical personnel, and field crews a dedicated command network — completely independent of the infrastructure that failed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-head">
+    <div class="section-label">How it works</div>
+    <h2>You tell us where. We handle everything else.</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div class="step-content">
+        <h3>Coverage planning</h3>
+        <p>Tell us your site layout, expected attendance, and what's running on the network — point-of-sale terminals, registration tablets, livestream uplink, staff devices, public WiFi. We map coverage zones, identify any terrain or obstruction considerations, and deliver a written bandwidth plan before you commit to anything.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div class="step-content">
+        <h3>Day-of setup</h3>
+        <p>We're on-site 90 minutes before your event opens. The van is positioned for optimal open-sky line-of-sight, access points elevated across your footprint, and the network tested against your specific use cases — POS handshake, registration sync, stream test. Live and confirmed before the first attendee walks in.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div class="step-content">
+        <h3>Live network management</h3>
+        <p>A Fieldcast technician monitors the network in real time — device counts, bandwidth by SSID, signal health at the coverage edge. We can isolate POS traffic from public WiFi, throttle bandwidth hogs, and respond to issues in minutes. Not hours. Not a ticket queue.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div class="step-content">
+        <h3>Clean packdown &amp; report</h3>
+        <p>We break down cleanly at event close. Within 24 hours you receive a full network usage report — peak concurrent devices, throughput by hour, uptime log, bandwidth by traffic type. Every repeat event runs smoother than the last.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK FEATURES -->
+<section class="netfeatures" id="network">
+  <div class="netfeatures-header">
+    <div>
+      <div class="section-label">Network management</div>
+      <h2>Not just a hotspot. A managed network built around your event.</h2>
+    </div>
+    <p>
+      Most temporary WiFi solutions are a consumer hotspot in a weatherproof case. Fieldcast runs enterprise network hardware — which means <strong>you control who gets what bandwidth, on which network, with your branding attached to it.</strong> These are the capabilities that separate a real network from a workaround.
+    </p>
+  </div>
+
+  <div class="netfeatures-grid">
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+      <div class="netfeature-title">Custom Branded SSIDs</div>
+      <div class="netfeature-desc">Your event, your network name. We configure SSIDs to match your event or sponsor branding — attendees connect to <em>FestivalName-WiFi</em> or <em>SponsorName-Guest</em>, not a generic network. Up to 8 simultaneous named networks from a single deployment.</div>
+      <div class="netfeature-tag">Included — Professional &amp; above</div>
+    </div>
+
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <div class="netfeature-title">Per-Device Bandwidth Caps</div>
+      <div class="netfeature-desc">Set a ceiling on how much bandwidth any single attendee device can consume. A guest streaming a video doesn't degrade the experience for 200 other people. Caps are configurable per SSID — public WiFi gets capped, POS terminals get uncapped dedicated throughput.</div>
+      <div class="netfeature-tag">Configurable per SSID</div>
+    </div>
+
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      <div class="netfeature-title">Traffic Prioritization (QoS)</div>
+      <div class="netfeature-desc">Point-of-sale and registration traffic is always first. Our QoS configuration ensures that payment processing, attendee check-in, and staff comms have guaranteed throughput even when the public network is at peak load. Critical operations never compete with casual browsing.</div>
+      <div class="netfeature-tag">POS &amp; ops traffic protected</div>
+    </div>
+
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+      <div class="netfeature-title">Captive Portal &amp; Splash Page</div>
+      <div class="netfeature-desc">When attendees join your public WiFi, they land on a custom-branded splash page before getting access — your logo, event info, sponsor recognition, or terms of use. Optional access codes for VIP networks. No third-party login required.</div>
+      <div class="netfeature-tag">Branded &amp; configurable</div>
+    </div>
+
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      <div class="netfeature-title">Network Isolation &amp; VLANs</div>
+      <div class="netfeature-desc">Staff, vendors, and attendees operate on completely separate network segments. A vendor on the POS network can't see attendee devices. Your production crew's VLAN is invisible to the public. Isolation is enforced at the hardware level — not a firewall rule that can be circumvented.</div>
+      <div class="netfeature-tag">Hardware-level isolation</div>
+    </div>
+
+    <div class="netfeature">
+      <svg class="netfeature-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+      <div class="netfeature-title">Live Monitoring Dashboard</div>
+      <div class="netfeature-desc">Our on-site technician watches a live dashboard showing connected device count, per-SSID throughput, signal strength at coverage edges, and satellite link health. If something changes — a traffic spike, a device overloading the uplink — we see it before you do and respond immediately.</div>
+      <div class="netfeature-tag">Real-time, on-site response</div>
+    </div>
+  </div>
+
+  <!-- SSID INTERACTIVE DEMO -->
+  <div class="ssid-demo">
+    <div class="ssid-demo-left">
+      <div class="ssid-demo-label">Live network preview</div>
+      <div class="ssid-demo-headline">Type your event name and watch your network spin up.</div>
+      <div class="ssid-demo-body">
+        Fieldcast configures every SSID before you arrive. Each network segment is isolated, named, and ready — attendees, vendors, staff, and press each connect to a network built for their specific role.
+      </div>
+      <div class="ssid-input-wrap">
+        <label class="ssid-input-label" for="eventNameInput">Event or organization name</label>
+        <input
+          class="ssid-input"
+          id="eventNameInput"
+          type="text"
+          maxlength="18"
+          placeholder="SummerFest"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+      <div class="ssid-demo-body" style="margin-top:0.25rem; font-size:0.75rem;">
+        <strong style="color:var(--chalk)">Amber networks</strong> carry QoS priority — POS and staff traffic is never deprioritized. Grey networks are capped per device. All segments are VLAN-isolated.
+      </div>
+    </div>
+
+    <div class="ios-phone">
+      <div class="ios-frame">
+        <div class="ios-screen">
+          <div class="ios-dynamic-island"></div>
+          <div class="ios-content">
+            <div class="ios-statusbar">
+              <span>9:41</span>
+              <div class="ios-statusbar-right">
+                <!-- Signal bars -->
+                <svg width="17" height="12" viewBox="0 0 17 12" fill="white">
+                  <rect x="0" y="8" width="3" height="4" rx="0.5" opacity="0.4"/>
+                  <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" opacity="0.4"/>
+                  <rect x="9" y="3" width="3" height="9" rx="0.5"/>
+                  <rect x="13.5" y="0" width="3" height="12" rx="0.5"/>
+                </svg>
+                <!-- WiFi -->
+                <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                  <path d="M8 9.5 L8 9.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M5.2 6.8 Q8 4.5 10.8 6.8" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                  <path d="M2.5 4.2 Q8 0.5 13.5 4.2" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                </svg>
+                <!-- Battery -->
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+                  <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/>
+                  <rect x="2" y="2" width="17" height="8" rx="2" fill="white"/>
+                  <path d="M22.5 4v4a2 2 0 000-4z" fill="white" fill-opacity="0.4"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="ios-navbar">
+              <div class="ios-back">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M8.5 1L1.5 8l7 7" stroke="#0A84FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Settings
+              </div>
+              <div class="ios-title">Wi-Fi</div>
+              <div style="width:60px"></div>
+            </div>
+
+            <div class="ios-toggle-row">
+              <div class="ios-cell">
+                <span class="ios-cell-label">Wi-Fi</span>
+                <div class="ios-toggle"></div>
+              </div>
+            </div>
+
+            <div class="ios-section-header" id="iosNetworkHeader">My Networks</div>
+
+            <div class="ios-network-list" id="iosNetworkList">
+              <div class="ios-empty" id="iosEmptyState">Type your event name to preview your networks</div>
+            </div>
+
+            <div class="ios-footer" id="iosFooter" style="display:none">
+              All networks are VLAN-isolated. Amber signal bars indicate QoS-prioritized traffic reserved for critical operations.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const input = document.getElementById('eventNameInput');
+    const list = document.getElementById('iosNetworkList');
+    const empty = document.getElementById('iosEmptyState');
+    const footer = document.getElementById('iosFooter');
+    const header = document.getElementById('iosNetworkHeader');
+    let timer = null;
+
+    function wifiBars(level, color) {
+      // level 1-4
+      const bars = [
+        {x:0,  y:8,   h:4,  op: level >= 1 ? 1 : 0.25},
+        {x:4.5,y:5.5, h:6.5,op: level >= 2 ? 1 : 0.25},
+        {x:9,  y:3,   h:9,  op: level >= 3 ? 1 : 0.25},
+        {x:13.5,y:0,  h:12, op: level >= 4 ? 1 : 0.25},
+      ];
+      return `<svg width="17" height="12" viewBox="0 0 17 12" fill="${color}">${
+        bars.map(b => `<rect x="${b.x}" y="${b.y}" width="3" height="${b.h}" rx="0.5" opacity="${b.op}"/>`).join('')
+      }</svg>`;
+    }
+
+    function lockIcon() {
+      return `<svg class="ios-lock" width="11" height="14" viewBox="0 0 11 14" fill="none">
+        <rect x="1.5" y="6" width="8" height="7.5" rx="1.5" stroke="#8E8E93" stroke-width="1.3" fill="none"/>
+        <path d="M3 6V4.5a2.5 2.5 0 015 0V6" stroke="#8E8E93" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+      </svg>`;
+    }
+
+    function buildNetworks(name) {
+      const n = name.trim();
+      if (!n) return [];
+      return [
+        { name: `${n}-POS`,    sub: 'Priority · Point of Sale',       bars: 4, priority: true,  locked: true,  connected: true  },
+        { name: `${n}-Staff`,  sub: 'Priority · Staff Operations',     bars: 4, priority: true,  locked: true,  connected: false },
+        { name: `${n}-WiFi`,   sub: 'Public · 5 Mbps per device',     bars: 4, priority: false, locked: false, connected: false },
+        { name: `${n}-VIP`,    sub: 'Private · Access code required',  bars: 3, priority: false, locked: true,  connected: false },
+        { name: `${n}-Media`,  sub: 'Press & Media · Uncapped',        bars: 3, priority: false, locked: true,  connected: false },
+        { name: 'Fieldcast-Production', sub: 'Production VLAN · Isolated', bars: 4, priority: false, locked: true, connected: false },
+      ];
+    }
+
+    function render(name) {
+      const nets = buildNetworks(name);
+      if (!nets.length) {
+        list.innerHTML = '<div class="ios-empty" id="iosEmptyState">Type your event name to preview your networks</div>';
+        footer.style.display = 'none';
+        header.textContent = 'Networks';
+        return;
+      }
+
+      header.textContent = `Fieldcast — ${name.trim()}`;
+      list.innerHTML = nets.map((n, i) => {
+        const nameColor = n.connected ? ' connected' : '';
+        const barColor = n.priority ? '#C8891A' : '#fff';
+        return `<div class="ios-network-row" data-i="${i}">
+          <div class="ios-net-icon">${wifiBars(n.bars, barColor)}</div>
+          <div class="ios-net-info">
+            <div class="ios-net-name${nameColor}">${n.name}${n.connected ? ' ✓' : ''}</div>
+            <div class="ios-net-sub">${n.sub}</div>
+          </div>
+          <div class="ios-net-right">
+            ${n.priority ? '<div class="ios-priority-dot"></div>' : ''}
+            ${n.locked ? lockIcon() : ''}
+            <div class="ios-info-btn">i</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      footer.style.display = 'block';
+
+      // Staggered reveal
+      const rows = list.querySelectorAll('.ios-network-row');
+      rows.forEach((row, i) => {
+        setTimeout(() => row.classList.add('visible'), i * 90);
+      });
+    }
+
+    input.addEventListener('input', function() {
+      clearTimeout(timer);
+      const val = this.value;
+      if (!val.trim()) {
+        render('');
+        return;
+      }
+      timer = setTimeout(() => render(val), 120);
+    });
+
+    // Seed immediately
+    input.value = 'SummerFest';
+    render('SummerFest');
+  })();
+  </script>
+</section>
+
+<!-- SPECS -->
+<section class="specs" id="specs">
+  <div class="section-label">The rig</div>
+  <div class="specs-grid">
+    <div class="spec-group">
+      <h3>Connectivity</h3>
+      <div class="spec-row">
+        <span class="spec-key">Uplink</span>
+        <span class="spec-val">Starlink High Performance</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Download</span>
+        <span class="spec-val">Up to 220 Mbps</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Latency</span>
+        <span class="spec-val">25 – 60 ms</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Coverage radius</span>
+        <span class="spec-val">500 m</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Concurrent devices</span>
+        <span class="spec-val">350+ supported</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Access points</span>
+        <span class="spec-val">Enterprise mesh, WPA3</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Simultaneous SSIDs</span>
+        <span class="spec-val">Up to 8 named networks</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Network isolation</span>
+        <span class="spec-val">VLAN per segment</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Bandwidth control</span>
+        <span class="spec-val">Per-device caps, QoS priority</span>
+      </div>
+    </div>
+    <div class="spec-group">
+      <h3>Power &amp; Platform</h3>
+      <div class="spec-row">
+        <span class="spec-key">Vehicle</span>
+        <span class="spec-val">Ford Transit Extended</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Solar array</span>
+        <span class="spec-val">800W roof-mounted</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Battery bank</span>
+        <span class="spec-val">10 kWh LiFePO₄</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Runtime (no sun)</span>
+        <span class="spec-val">12+ hours</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">External hookup</span>
+        <span class="spec-val">Not required</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-key">Deploy time</span>
+        <span class="spec-val">&lt; 60 minutes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-intro">
+    <div>
+      <div class="section-label">Pricing</div>
+      <h2>Transparent rates. No surprise line items.</h2>
+    </div>
+    <p class="pricing-note">
+      All deployments include setup, teardown, on-site technician support, and a post-event usage report. <strong>Multi-day events, recurring contracts, and large-footprint productions</strong> are quoted individually — contact us and we'll turn a proposal around within 24 hours.
+    </p>
+  </div>
+
+  <div class="pricing-tiers">
+    <div class="tier">
+      <div class="tier-badge">Half Day</div>
+      <div class="tier-name">Essential</div>
+      <p class="tier-desc">Up to 6 hours. Ideal for smaller outdoor gatherings, private events, and day shoots with moderate connectivity needs.</p>
+      <div class="tier-price"><sup>$</sup>795</div>
+      <div class="tier-period">Starting from</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li>Up to 6 hours on-site</li>
+        <li>Up to <strong>150 concurrent devices</strong></li>
+        <li>Single SSID network</li>
+        <li>Starlink broadband uplink</li>
+        <li>Solar-powered — no hookup</li>
+        <li>Remote technician support</li>
+      </ul>
+      <a href="#contact" class="tier-cta">Get a quote</a>
+    </div>
+
+    <div class="tier featured">
+      <div class="tier-badge">Most Popular &nbsp;·&nbsp; Full Day</div>
+      <div class="tier-name">Professional</div>
+      <p class="tier-desc">Up to 12 hours. Built for festivals, outdoor markets, corporate field days, and any event running POS, registration, and public WiFi simultaneously.</p>
+      <div class="tier-price"><sup>$</sup>1,495</div>
+      <div class="tier-period">Starting from</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li>Up to 12 hours on-site</li>
+        <li>Up to <strong>350+ concurrent devices</strong></li>
+        <li><strong>Segmented SSIDs</strong> — staff, POS, public</li>
+        <li>Bandwidth prioritization for critical systems</li>
+        <li>Starlink High Performance uplink</li>
+        <li><strong>On-site technician</strong> for full event duration</li>
+        <li>Live stream-capable uplink configuration</li>
+        <li>Post-event network usage report</li>
+      </ul>
+      <a href="#contact" class="tier-cta">Get a quote</a>
+    </div>
+
+    <div class="tier">
+      <div class="tier-badge">Custom</div>
+      <div class="tier-name">Production</div>
+      <p class="tier-desc">Multi-day events, large-scale productions, emergency deployments, or sites requiring extended coverage or additional access points.</p>
+      <div class="tier-price">Custom</div>
+      <div class="tier-period">Contact for pricing</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li>Multi-day and recurring deployment rates</li>
+        <li>Additional access points for extended coverage</li>
+        <li><strong>Dedicated bandwidth</strong> for livestream uplink</li>
+        <li>Multiple isolated network segments</li>
+        <li>24-hour emergency staging available</li>
+        <li>Government and agency billing supported</li>
+        <li>Site survey prior to deployment</li>
+      </ul>
+      <a href="#contact" class="tier-cta">Contact us</a>
+    </div>
+  </div>
+
+  <p class="pricing-footer">All prices are base rates for standard outdoor deployments within 50 miles. Travel surcharges apply beyond 50 miles. Pricing does not include any required permitting or site access fees. Final quotes are issued after a brief consultation.</p>
+</section>
+
+<!-- LIMITATIONS & DISCLAIMER -->
+<section class="limitations">
+  <div class="limitations-inner">
+    <div class="limitations-head">Coverage &amp; limitations</div>
+    <div class="limitations-body">
+      <div class="limitation-item">
+        <svg class="limitation-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <div class="limitation-text">
+          <strong>Buildings &amp; enclosed structures</strong>
+          WiFi signals do not reliably penetrate solid building walls, thick concrete, or enclosed structures. Fieldcast is designed for open-air and outdoor deployments. Indoor coverage in nearby structures is not guaranteed and may require additional hardware.
+        </div>
+      </div>
+      <div class="limitation-item">
+        <svg class="limitation-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+        </svg>
+        <div class="limitation-text">
+          <strong>Metal structures &amp; vehicles</strong>
+          Large metal objects — trailers, shipping containers, stage rigs, food truck clusters — can attenuate or block signal in their immediate shadow. We account for these during site planning; additional access points can be added to address known obstructions.
+        </div>
+      </div>
+      <div class="limitation-item">
+        <svg class="limitation-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="limitation-text">
+          <strong>Satellite uplink requirements</strong>
+          Starlink requires a clear view of the sky to operate. Dense tree canopy, canyon terrain, or locations with significant overhead obstruction can affect signal quality. We assess sky coverage during planning and will advise if a site presents uplink risk.
+        </div>
+      </div>
+      <div class="limitation-item">
+        <svg class="limitation-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <div class="limitation-text">
+          <strong>Speed &amp; device count</strong>
+          Real-world throughput and concurrent device capacity vary based on satellite conditions, terrain, device density, and network usage patterns. Published figures represent typical performance under standard outdoor conditions and are not guaranteed.
+        </div>
+      </div>
+
+      <div class="disclaimer-bar">
+        <strong>Performance disclaimer:</strong> Coverage radius, device capacity, download speeds, and deployment timelines represent typical performance under standard outdoor operating conditions. Actual results may vary based on satellite signal availability, terrain, obstructions, atmospheric conditions, and network demand. Fieldcast does not guarantee specific throughput speeds, coverage distances, or uninterrupted service. Clients with critical operational requirements are encouraged to discuss site-specific considerations during consultation. Additional access points or hardware may be required for complex or large-scale deployments and will be quoted separately.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-glow"></div>
+  <h2>Stop working around the signal. Bring it with you.</h2>
+  <p>Tell us your date, site, and what you're running on the network. We'll have a coverage plan and quote back within 24 hours — no commitment required.</p>
+  <a href="mailto:contact@fieldcast.io" class="btn-primary">Get a Coverage Plan</a>
+  <p class="cta-contact">Faster? Call us directly: <a href="tel:+15555555555">+1 (555) 555-5555</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Field<span>cast</span></div>
+  <div class="footer-copy">© 2026 Fieldcast Mobile Networks &nbsp;·&nbsp; Solar-powered. Always on.</div>
+</footer>
