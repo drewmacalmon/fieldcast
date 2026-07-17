@@ -2,6 +2,85 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%2032%2032%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2307080D%22/%3E%3Ctext%20x%3D%222%22%20y%3D%2223%22%20font-family%3D%22Palatino%20Linotype%2CPalatino%2CGeorgia%2Cserif%22%20font-size%3D%2216%22%20fill%3D%22%23E8E4DC%22%3EFc%3C/text%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fieldcast — Mobile Event Internet</title>
+<meta name="description" content="Fieldcast deploys enterprise mobile WiFi to any outdoor event in Colorado — solar-powered, Starlink-backed, live in under an hour. Serving Denver, Colorado Springs, Boulder, Fort Collins, Castle Rock, and Pueblo.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://fieldcast-tau.vercel.app/#business",
+      "name": "Fieldcast",
+      "description": "Mobile event internet service deploying enterprise WiFi to outdoor events across Colorado. Solar-powered, Starlink-backed, live in under an hour.",
+      "url": "https://fieldcast-tau.vercel.app",
+      "telephone": "+17194286720",
+      "email": "hello@fieldcast.co",
+      "areaServed": ["Denver, CO", "Colorado Springs, CO", "Boulder, CO", "Fort Collins, CO", "Castle Rock, CO", "Pueblo, CO", "Colorado"],
+      "serviceType": "Mobile Event Internet",
+      "priceRange": "$$",
+      "sameAs": ["https://github.com/drewmacalmon/fieldcast"]
+    },
+    {
+      "@type": "Service",
+      "name": "Mobile Event WiFi Deployment",
+      "provider": {"@id": "https://fieldcast-tau.vercel.app/#business"},
+      "description": "On-demand enterprise broadband for outdoor events. Starlink satellite uplink, solar-powered, up to 350+ concurrent devices, 500m coverage radius, custom SSIDs, VLAN isolation, live monitoring.",
+      "areaServed": "Colorado",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Basecamp",
+          "description": "Up to 4 hours, 100 concurrent devices",
+          "price": "650",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Full Day",
+          "description": "Up to 10 hours, 250 concurrent devices",
+          "price": "1100",
+          "priceCurrency": "USD"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Fieldcast provide internet at outdoor events?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Fieldcast uses a Starlink satellite uplink mounted on a solar-powered Ford Transit van. The van drives to your event site, raises enterprise mesh WiFi access points, and broadcasts broadband up to 500 meters with no ground infrastructure required."}
+        },
+        {
+          "@type": "Question",
+          "name": "How quickly can Fieldcast deploy at an event?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Fieldcast is typically live within 60 minutes of arriving on site. We arrive 90 minutes before event open to allow time for setup, testing, and network validation before the first attendee arrives."}
+        },
+        {
+          "@type": "Question",
+          "name": "What areas does Fieldcast serve?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Fieldcast primarily serves Colorado including Denver, Colorado Springs, Boulder, Fort Collins, Castle Rock, and Pueblo. We also serve surrounding regions and can travel beyond 50 miles with a travel surcharge."}
+        },
+        {
+          "@type": "Question",
+          "name": "How much does mobile event WiFi cost?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Fieldcast pricing starts at $650 for a Basecamp deployment (up to 4 hours, 100 devices) and $1,100 for a Full Day deployment (up to 10 hours, 250 devices). Large-scale and multi-day deployments are quoted custom."}
+        },
+        {
+          "@type": "Question",
+          "name": "Does Fieldcast work in locations with no cell service?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. Fieldcast uses Starlink satellite internet, which does not rely on cell towers. It works in any location with a clear view of the sky, including remote parks, canyons, reservoirs, and rural event venues."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can Fieldcast support point-of-sale systems at outdoor events?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. Fieldcast uses QoS traffic prioritization to guarantee bandwidth for POS terminals, registration systems, and staff networks. These are isolated on separate VLANs from the public attendee WiFi so critical operations are never affected by casual browsing."}
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

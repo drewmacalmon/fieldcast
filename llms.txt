@@ -1,0 +1,48 @@
+# Fieldcast
+
+> Fieldcast is a mobile event internet service based in Colorado. We deploy enterprise-grade WiFi to outdoor events, festivals, parks, and remote locations using a solar-powered Ford Transit van with Starlink satellite uplink. We go live in under an hour with no infrastructure required.
+
+## What We Do
+
+Fieldcast provides on-demand broadband connectivity for outdoor events where cellular is overloaded or nonexistent. Our setup includes 800 watts of roof-mounted solar, a 10 kWh lithium battery bank, Starlink satellite uplink (up to 220 Mbps), and enterprise mesh WiFi covering up to 500 meters. We support up to 350+ concurrent devices and multiple isolated network segments (VLANs) with custom branded SSIDs, QoS traffic prioritization, and a live monitoring dashboard.
+
+## Who We Serve
+
+- Outdoor festivals and fairs
+- Corporate and private events
+- Film production and livestreaming
+- Trail races, triathlons, and athletic events
+- Emergency and incident response
+- Weddings and private gatherings at remote venues
+
+## Service Areas
+
+- [Denver, CO](https://fieldcast-tau.vercel.app/denver) — City Park, Civic Center Park, Washington Park, Denver Botanic Gardens, Chatfield State Park
+- [Colorado Springs, CO](https://fieldcast-tau.vercel.app/colorado-springs) — Garden of the Gods, Memorial Park, Palmer Park, Cheyenne Mountain State Park
+- [Boulder, CO](https://fieldcast-tau.vercel.app/boulder) — Chautauqua Park, Pearl Street Mall, Boulder Creek Festival, Boulder Reservoir, CU Boulder
+- [Fort Collins, CO](https://fieldcast-tau.vercel.app/fort-collins) — Old Town Square, Horsetooth Reservoir, City Park, CSU Campus, Poudre Canyon
+- [Castle Rock, CO](https://fieldcast-tau.vercel.app/castle-rock) — Philip S. Miller Park, Castle Rock Amphitheater, Douglas County Fairgrounds
+- [Pueblo, CO](https://fieldcast-tau.vercel.app/pueblo) — Colorado State Fairgrounds, Historic Arkansas Riverwalk, Pueblo Reservoir
+
+## Pricing
+
+- **Basecamp** (up to 4 hours, 100 devices): starts at $650
+- **Full Day** (up to 10 hours, 250 devices): starts at $1,100
+- **Production** (multi-day / large-scale): custom quote
+
+## Contact
+
+- Phone: (719) 428-6720
+- Email: hello@fieldcast.co
+- Book online: [fieldcast-tau.vercel.app/contact](https://fieldcast-tau.vercel.app/contact)
+
+## Pages
+
+- [Home](https://fieldcast-tau.vercel.app)
+- [Contact / Book a Deployment](https://fieldcast-tau.vercel.app/contact)
+- [Denver Event WiFi](https://fieldcast-tau.vercel.app/denver)
+- [Colorado Springs Event WiFi](https://fieldcast-tau.vercel.app/colorado-springs)
+- [Boulder Event WiFi](https://fieldcast-tau.vercel.app/boulder)
+- [Fort Collins Event WiFi](https://fieldcast-tau.vercel.app/fort-collins)
+- [Castle Rock Event WiFi](https://fieldcast-tau.vercel.app/castle-rock)
+- [Pueblo Event WiFi](https://fieldcast-tau.vercel.app/pueblo)
