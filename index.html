@@ -1336,6 +1336,42 @@
     grid-column: 1 / -1;
   }
 
+  /* ── AREAS SERVED ── */
+  .areas-served {
+    padding: 3.5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+  .areas-served-inner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .areas-served-head {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .areas-cities {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .areas-cities a {
+    font-size: 0.85rem;
+    color: var(--chalk-dim);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 0.45rem 1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .areas-cities a:hover {
+    color: var(--chalk);
+    border-color: var(--muted);
+  }
+
   /* ── FOOTER ── */
   footer {
     padding: 2rem 3rem;
@@ -1403,6 +1439,8 @@
     .limitations-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .limitations-body { grid-template-columns: 1fr; }
     .cta-section { padding: 4rem 1.25rem; }
+    .areas-served { padding: 2.5rem 1.25rem; }
+    .areas-served-inner { grid-template-columns: 1fr; gap: 1.25rem; }
     footer { padding: 1.5rem 1.25rem; }
     .signal-bar { padding: 0; }
     .signal-item { min-width: 160px; }
@@ -2369,6 +2407,21 @@
   <p>Tell us your date, site, and what you're running on the network. We'll have a coverage plan and quote back within 24 hours — no commitment required.</p>
   <a href="mailto:contact@fieldcast.io" class="btn-primary">Get a Coverage Plan</a>
   <p class="cta-contact">Faster? Call us directly: <a href="tel:+17194286720">(719) 428-6720</a></p>
+</section>
+
+<!-- AREAS SERVED -->
+<section class="areas-served">
+  <div class="areas-served-inner">
+    <div class="areas-served-head">Areas served</div>
+    <div class="areas-cities">
+      <a href="/denver">Denver</a>
+      <a href="/colorado-springs">Colorado Springs</a>
+      <a href="/boulder">Boulder</a>
+      <a href="/fort-collins">Fort Collins</a>
+      <a href="/castle-rock">Castle Rock</a>
+      <a href="/pueblo">Pueblo</a>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->

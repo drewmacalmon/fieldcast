@@ -1,0 +1,200 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event WiFi Colorado Springs, CO — Fieldcast Mobile Internet</title>
+<meta name="description" content="Fieldcast deploys enterprise mobile WiFi to Colorado Springs outdoor events and parks. Starlink-powered, solar-run, live in under an hour. Serving Garden of the Gods, Memorial Park, Pikes Peak, and beyond.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07080D; --surface: #0F1320; --surface2: #161B2A;
+    --amber: #C8891A; --chalk: #E8E4DC; --chalk-dim: #A8A49C; --muted: #4A5068;
+    --border: rgba(255,255,255,0.07);
+    --type-serif: Palatino Linotype, Palatino, Georgia, 'Book Antiqua', serif;
+    --type-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #F2EFE8; --surface: #E8E4DC; --surface2: #DDD9D0; --chalk: #1A1C22; --chalk-dim: #4A5068; --muted: #7A7E8C; --border: rgba(0,0,0,0.08); }
+  }
+  :root[data-theme="dark"] { --bg: #07080D; --surface: #0F1320; --surface2: #161B2A; --chalk: #E8E4DC; --chalk-dim: #A8A49C; --muted: #4A5068; --border: rgba(255,255,255,0.07); }
+  :root[data-theme="light"] { --bg: #F2EFE8; --surface: #E8E4DC; --surface2: #DDD9D0; --chalk: #1A1C22; --chalk-dim: #4A5068; --muted: #7A7E8C; --border: rgba(0,0,0,0.08); }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--chalk); font-family: var(--type-sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; background: var(--bg); }
+  .nav-logo { font-family: var(--type-serif); font-size: 1.25rem; font-weight: 400; letter-spacing: 0.06em; color: var(--chalk); text-decoration: none; }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--chalk-dim); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--chalk); }
+  .nav-cta { background: var(--amber); color: #07080D !important; padding: 0.55rem 1.25rem; font-weight: 600; font-size: 0.75rem !important; letter-spacing: 0.1em !important; }
+  .mobile-island { display: none; }
+  @media (max-width: 900px) {
+    .mobile-island { display: flex; align-items: center; justify-content: space-between; position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); width: calc(100% - 2.5rem); max-width: 420px; background: #F2EFE8; border-radius: 999px; padding: 0.6rem 0.6rem 0.6rem 1.25rem; z-index: 200; box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.12); }
+    .mobile-island-logo { font-family: var(--type-serif); font-size: 1rem; letter-spacing: 0.06em; color: #07080D; text-decoration: none; }
+    .mobile-island-logo span { color: var(--amber); }
+    .mobile-island-btn { background: #07080D; color: #F2EFE8 !important; padding: 0.6rem 1.1rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+    body { padding-bottom: 5rem; }
+  }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 64px); align-items: center; }
+  .hero-copy { padding: 4rem 3rem; max-width: 600px; }
+  .hero-photo { position: relative; height: 100%; min-height: 480px; overflow: hidden; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--amber); }
+  .hero h1 { font-family: var(--type-serif); font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 400; line-height: 1.08; text-wrap: balance; color: var(--chalk); margin-bottom: 1.75rem; letter-spacing: -0.01em; }
+  .hero h1 em { font-style: italic; color: var(--chalk-dim); }
+  .hero-sub { font-size: 1.05rem; color: var(--chalk-dim); line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem; }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--amber); color: #07080D; padding: 0.85rem 2rem; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost { color: var(--chalk-dim); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--muted); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--chalk); border-color: var(--chalk); }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+  .section-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+  .venues { padding: 5rem 3rem; }
+  .venues h2 { font-family: var(--type-serif); font-size: clamp(1.8rem, 2.5vw, 2.6rem); font-weight: 400; line-height: 1.2; text-wrap: balance; margin-bottom: 1rem; }
+  .venues-intro { font-size: 0.95rem; color: var(--chalk-dim); line-height: 1.75; max-width: 640px; margin-bottom: 3rem; }
+  .venues-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .venue-card { background: var(--surface); padding: 2rem 1.75rem; transition: background 0.2s; }
+  .venue-card:hover { background: var(--surface2); }
+  .venue-name { font-size: 1rem; font-weight: 600; color: var(--chalk); margin-bottom: 0.4rem; }
+  .venue-type { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem; }
+  .venue-desc { font-size: 0.82rem; color: var(--chalk-dim); line-height: 1.65; }
+  .why { padding: 5rem 3rem; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .why h2 { font-family: var(--type-serif); font-size: clamp(1.8rem, 2.5vw, 2.6rem); font-weight: 400; line-height: 1.2; text-wrap: balance; margin-top: 1rem; }
+  .why-body p { color: var(--chalk-dim); line-height: 1.8; margin-bottom: 1.25rem; font-size: 0.97rem; }
+  .why-body p strong { color: var(--chalk); font-weight: 500; }
+  .cta-section { padding: 6rem 3rem; text-align: center; border-top: 1px solid var(--border); position: relative; overflow: hidden; }
+  .cta-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(200,137,26,0.07), transparent); pointer-events: none; }
+  .cta-section h2 { font-family: var(--type-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; text-wrap: balance; max-width: 640px; margin: 0 auto 1.5rem; line-height: 1.1; }
+  .cta-section p { color: var(--chalk-dim); max-width: 420px; margin: 0 auto 2.5rem; font-size: 0.95rem; line-height: 1.7; }
+  .cta-contact { margin-top: 2rem; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; }
+  .cta-contact a { color: var(--chalk-dim); text-decoration: none; border-bottom: 1px solid var(--muted); }
+  .areas { padding: 3rem; border-top: 1px solid var(--border); }
+  .areas h3 { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+  .areas-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .areas-links a { font-size: 0.82rem; color: var(--chalk-dim); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+  .areas-links a:hover { color: var(--chalk); border-color: var(--muted); }
+  footer { padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: var(--type-serif); font-size: 1rem; color: var(--chalk-dim); letter-spacing: 0.06em; }
+  .footer-logo span { color: var(--amber); }
+  .footer-copy { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.25rem; } .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-copy { padding: 2.5rem 1.25rem 2rem; }
+    .hero-photo { min-height: 60vw; height: 60vw; }
+    .venues { padding: 3rem 1.25rem; }
+    .venues-grid { grid-template-columns: 1fr 1fr; }
+    .why { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem; }
+    .cta-section { padding: 4rem 1.25rem; }
+    .areas { padding: 2rem 1.25rem; }
+    footer { padding: 1.5rem 1.25rem; }
+  }
+  @media (max-width: 640px) { .venues-grid { grid-template-columns: 1fr; } }
+</style>
+
+<nav>
+  <a class="nav-logo" href="/">Field<span>cast</span></a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="/#how">How It Works</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/contact" class="nav-cta">Book a Deployment</a></li>
+  </ul>
+</nav>
+
+<div class="mobile-island">
+  <a class="mobile-island-logo" href="/">Field<span>cast</span></a>
+  <a class="mobile-island-btn" href="/contact">Book Now</a>
+</div>
+
+<section class="hero">
+  <div class="hero-copy">
+    <div class="hero-eyebrow">Colorado Springs, CO · Outdoor Event WiFi</div>
+    <h1>Pikes Peak country.<br><em>No dead zones.</em></h1>
+    <p class="hero-sub">
+      Garden of the Gods, Memorial Park, Palmer Park — Colorado Springs' most spectacular outdoor venues are also its most challenging for connectivity. Fieldcast solves that.
+    </p>
+    <div class="hero-actions">
+      <a href="/contact" class="btn-primary">Book a Deployment</a>
+      <a href="#venues" class="btn-ghost">Venues we serve</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Garden_of_the_Gods_spring.jpg/1280px-Garden_of_the_Gods_spring.jpg" alt="Garden of the Gods, Colorado Springs" />
+  </div>
+</section>
+
+<section class="venues" id="venues">
+  <div class="section-label">Colorado Springs outdoor venues</div>
+  <h2>From Garden of the Gods to Palmer Park</h2>
+  <p class="venues-intro">Colorado Springs sits at the foot of Pikes Peak with some of the most visually dramatic outdoor event venues in the country. The terrain that makes these locations stunning is the same terrain that kills cellular signal. Fieldcast's satellite uplink works regardless of canyon walls, elevation changes, or crowd density.</p>
+  <div class="venues-grid">
+    <div class="venue-card">
+      <div class="venue-type">Park / Festival</div>
+      <div class="venue-name">Garden of the Gods</div>
+      <p class="venue-desc">One of Colorado's most iconic landscapes and a bucket-list event venue. The sandstone formations create cellular shadows throughout the park. Fieldcast deploys a dedicated uplink at the site perimeter, covering the full event footprint without touching the protected landscape.</p>
+    </div>
+    <div class="venue-card">
+      <div class="venue-type">Festival / Concert</div>
+      <div class="venue-name">Memorial Park</div>
+      <p class="venue-desc">Colorado Springs' primary large-event park hosts Pikes Peak or Bust Rodeo, concerts, triathlons, and community festivals along Prospect Lake. High-attendance events routinely overwhelm local cellular. Our dedicated uplink keeps POS, registration, and operations running throughout.</p>
+    </div>
+    <div class="venue-card">
+      <div class="venue-type">Trail / Race Event</div>
+      <div class="venue-name">Palmer Park</div>
+      <p class="venue-desc">730 acres of mesa and canyon terrain hosting trail races, mountain bike events, and outdoor gatherings. Scattered coverage across the park makes cellular unreliable for event timing, medical coordination, and volunteer communication — all of which Fieldcast keeps connected.</p>
+    </div>
+    <div class="venue-card">
+      <div class="venue-type">Athletic / Race</div>
+      <div class="venue-name">Pikes Peak Greenway Trail</div>
+      <p class="venue-desc">Linear race and event corridor along Fountain Creek. Timing stations, medical checkpoints, and finish-line operations spread across miles of course. Our deployment covers the critical nodes with a single managed network.</p>
+    </div>
+    <div class="venue-card">
+      <div class="venue-type">Historic / Cultural</div>
+      <div class="venue-name">Colorado College Campus</div>
+      <p class="venue-desc">Outdoor commencement ceremonies, alumni events, and campus gatherings on the open quad. When the institution's WiFi doesn't reach the lawn, Fieldcast bridges the gap with a temporary enterprise deployment matched to the event scale.</p>
+    </div>
+    <div class="venue-card">
+      <div class="venue-type">Open Space / Remote</div>
+      <div class="venue-name">Cheyenne Mountain State Park</div>
+      <p class="venue-desc">Event space at the foot of Cheyenne Mountain with minimal cellular penetration inside the park boundary. Weddings, retreats, and trail races all benefit from a Fieldcast deployment that brings broadband to a location the carriers effectively don't serve.</p>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div>
+    <div class="section-label">Why Colorado Springs</div>
+    <h2>Dramatic terrain. Reliable internet. Not usually in the same sentence.</h2>
+  </div>
+  <div class="why-body">
+    <p>Colorado Springs is a military city, a tourism city, and an outdoor recreation capital — which means it hosts an enormous range of outdoor events, from Pikes Peak International Hill Climb to community 5Ks in the park. The scenery is world-class. The cellular coverage in most of those venues is not.</p>
+    <p><strong>Elevation and terrain are the core problem.</strong> Red rock formations, canyon walls, and terrain variation create cellular shadows that no amount of carrier infrastructure investment fully resolves. Fieldcast's Starlink uplink bypasses all of that — it connects directly to low-earth-orbit satellites, not ground-based towers that can't see your venue.</p>
+    <p>We serve the full Colorado Springs metro and surrounding areas, including Manitou Springs and the Ute Pass corridor. One call gets you a coverage plan within 24 hours.</p>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="section-label" style="justify-content:center">Get connected</div>
+  <h2>Planning an outdoor event in Colorado Springs?</h2>
+  <p>Tell us your venue and what needs to stay online. We'll have a coverage plan back to you within 24 hours.</p>
+  <a href="/contact" class="btn-primary">Request a Quote</a>
+  <div class="cta-contact">Or call: <a href="tel:+17194286720">(719) 428-6720</a></div>
+</section>
+
+<div class="areas">
+  <h3>Also serving</h3>
+  <div class="areas-links">
+    <a href="/denver">Denver</a>
+    <a href="/boulder">Boulder</a>
+    <a href="/fort-collins">Fort Collins</a>
+    <a href="/castle-rock">Castle Rock</a>
+    <a href="/pueblo">Pueblo</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Field<span>cast</span></div>
+  <div class="footer-copy">© 2025 Fieldcast · Mobile Event Internet · Colorado</div>
+</footer>
