@@ -1,4 +1,5 @@
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fieldcast — Mobile Event Internet</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -784,10 +785,7 @@
     padding: 14px;
     box-shadow:
       0 0 0 1px rgba(255,255,255,0.12),
-      inset 0 0 0 1px rgba(0,0,0,0.6),
-      0 50px 100px rgba(0,0,0,0.8),
-      0 25px 50px rgba(0,0,0,0.5),
-      0 0 80px rgba(0,0,0,0.3);
+      inset 0 0 0 1px rgba(0,0,0,0.6);
   }
 
   /* Mute switch + volume buttons left */
@@ -1318,50 +1316,73 @@
   }
 
   @media (max-width: 1000px) {
-    .ssid-demo { grid-template-columns: 1fr; }
-    .ios-phone { align-items: flex-start; }
+    .ssid-demo { grid-template-columns: 1fr; gap: 2rem; }
+    .ios-phone { align-items: center; }
     .ios-frame { width: 300px; }
   }
 
   @media (max-width: 900px) {
-    .netfeatures { padding: 3rem 1.5rem; }
-    .netfeatures-header { grid-template-columns: 1fr; gap: 1.5rem; }
-    .ssid-demo { padding: 1.5rem; }
-  }
-
-  @media (max-width: 900px) {
-    nav { padding: 1.25rem 1.5rem; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
     .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-copy { padding: 3rem 1.5rem; }
-    .hero-photo { min-height: 50vw; height: 50vw; }
-    .intro { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-    .intro-headline { position: static; }
-    .cases-grid { grid-template-columns: 1fr 1fr; }
-    .how { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
+    .hero-copy { padding: 2.5rem 1.25rem 2rem; }
+    .hero-photo { min-height: 60vw; height: 60vw; }
+    .intro { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem; }
+    .intro-headline { position: static; font-size: 2rem; }
+    .cases-grid { grid-template-columns: 1fr 1fr; gap: 0; }
+    .how { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.25rem; }
     .how-head { position: static; }
-    .specs { padding: 3rem 1.5rem; }
+    .how-head h2 { font-size: 2rem; }
+    .netfeatures { padding: 3rem 1.25rem; }
+    .netfeatures-header { grid-template-columns: 1fr; gap: 1rem; }
+    .ssid-demo { padding: 1.5rem; }
+    .specs { padding: 3rem 1.25rem; }
     .specs-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .use-cases { padding: 3rem 1.5rem; }
-    .pricing { padding: 3rem 1.5rem; }
+    .use-cases { padding: 3rem 1.25rem; }
+    .pricing { padding: 3rem 1.25rem; }
     .pricing-intro { grid-template-columns: 1fr; gap: 1.5rem; }
     .pricing-intro h2 { position: static; }
-    .limitations { padding: 2.5rem 1.5rem; }
+    .limitations { padding: 2.5rem 1.25rem; }
     .limitations-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .limitations-body { grid-template-columns: 1fr; }
-    .cta-section { padding: 4rem 1.5rem; }
-    footer { padding: 1.5rem; }
+    .cta-section { padding: 4rem 1.25rem; }
+    footer { padding: 1.5rem 1.25rem; }
     .signal-bar { padding: 0; }
-    .signal-item { min-width: 200px; }
+    .signal-item { min-width: 160px; }
   }
 
   @media (max-width: 640px) {
     .netfeatures-grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 580px) {
     .cases-grid { grid-template-columns: 1fr; }
     .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
-    .nav-links { display: none; }
+    .hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); }
+    .qr-block { flex-direction: column; gap: 1rem; }
+    .ssid-demo { padding: 1.25rem; }
+    .ios-frame { width: 260px; }
+    .pricing-tiers { gap: 1rem; }
+    .tier { padding: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 0.875rem 1rem; }
+    .nav-cta { font-size: 0.7rem; padding: 0.5rem 0.875rem; }
+    .hero-copy { padding: 2rem 1rem 1.5rem; }
+    .hero-photo { min-height: 70vw; height: 70vw; }
+    .intro { padding: 2.5rem 1rem; }
+    .cases-grid { padding: 0 1rem 2rem; }
+    .case-card { padding: 1.25rem; }
+    .how { padding: 2.5rem 1rem; }
+    .how-steps { padding: 0; }
+    .netfeatures { padding: 2.5rem 1rem; }
+    .ssid-demo { padding: 1rem; margin: 0; border-radius: 0; border-left: none; border-right: none; }
+    .specs { padding: 2.5rem 1rem; }
+    .use-cases { padding: 2.5rem 1rem; }
+    .pricing { padding: 2.5rem 1rem; }
+    .limitations { padding: 2rem 1rem; }
+    .cta-section { padding: 3rem 1rem; }
+    footer { padding: 1.25rem 1rem; }
+    .footer-links { flex-wrap: wrap; gap: 1rem; }
+    .signal-bar { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1487,22 +1508,22 @@
   <div class="section-label">Who we serve</div>
   <div class="cases-grid">
     <div class="case-card">
-      <div class="case-num">I</div>
+      <div class="case-num">1</div>
       <div class="case-title">Festivals, Fairs &amp; Outdoor Events</div>
       <p class="case-desc">Your vendors need point-of-sale. Your gate staff need registration syncing. Your production team needs livestream uplink. When half your crowd can't pay by card because the signal is gone, you feel it immediately — in lines, in complaints, in revenue. We keep every one of those systems live, from first gates to last call.</p>
     </div>
     <div class="case-card">
-      <div class="case-num">II</div>
+      <div class="case-num">2</div>
       <div class="case-title">Outdoor Corporate &amp; Private Events</div>
       <p class="case-desc">Attendee check-in apps, registration kiosks, badge printing, real-time headcount — none of it works without a network. Off-site corporate events and private gatherings in remote locations need the same reliability as the office, without dragging the infrastructure along with you.</p>
     </div>
     <div class="case-card">
-      <div class="case-num">III</div>
+      <div class="case-num">3</div>
       <div class="case-title">Film, Live Streaming &amp; Production</div>
       <p class="case-desc">Remote shoots need connectivity for video village, production software, and real-time dailies upload. Live-stream productions need stable, high-throughput uplink that a single saturated hotspot can't provide. We bring a dedicated, managed network to any field location — no cell signal required.</p>
     </div>
     <div class="case-card">
-      <div class="case-num">IV</div>
+      <div class="case-num">4</div>
       <div class="case-title">Emergency &amp; Incident Response</div>
       <p class="case-desc">When infrastructure is down, the teams managing the response can't afford to be in a dead zone too. Fieldcast stages within an hour of the call, giving emergency coordinators, medical personnel, and field crews a dedicated command network — completely independent of the infrastructure that failed.</p>
     </div>
